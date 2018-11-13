@@ -2,11 +2,6 @@
 
 socket.on('connect', function(){
        console.log('connected to server');
-       
-       socket.emit('createMessage', {
-           from : 'piku',
-           text : 'new text message'
-       });
  });
            
  socket.on('disconnect', function(){
