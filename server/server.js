@@ -4,9 +4,11 @@ const express = require("express"),
       publicPath = path.join(__dirname,'../public'),
       socketIO = require("socket.io"),
       {generateMessage} = require("./utils/message");
+var $ = require("jquery");
 var app = express();
 var server = http.createServer(app);
 var io = socketIO(server);
+
 
 app.use(express.static(publicPath));
 
@@ -20,10 +22,10 @@ io.on('connection', function(socket){
     // welcome msg from admin to new user
     socket.emit('newMessage', generateMessage('Admin' , 'welcome to chat app'));
    
-    socket.on('createMessage', function(message){
+    socket.on('createMessage', function(message, callback){
       console.log('create message', message);
       io.emit('newMessage', generateMessage(message.from, message.text));
-      
+      callback('this is from server');
       
         // socket.broadcast.emit('newMessage', {
         //     from : message.from,
